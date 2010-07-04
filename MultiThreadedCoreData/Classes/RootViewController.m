@@ -79,14 +79,15 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
     NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"surname"] description];
+    cell.textLabel.text = [[managedObject valueForKey:@"firstName"] description];
+    [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[fetchedResultsController sections] count];
+    return 3;
 }
 
 
@@ -97,7 +98,10 @@
             return [sectionInfo numberOfObjects];
         }
         case 1: {
-            return 3;
+            return 1;
+        }
+        case 2: {
+            return 2;
         }
         default: {
             [NSException raise:NSInvalidArgumentException format:@"No such section"];
@@ -116,14 +120,56 @@
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+            }
+
+            // Configure the cell.
+            NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
+            cell.textLabel.text = [[managedObject valueForKey:@"firstName"] description];
+            [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
+
+            return cell;
+        } case 1: {
+            static NSString *CellIdentifier = @"ButtonCell";
+
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
             }
 
             // Configure the cell.
-            [self configureCell:cell atIndexPath:indexPath];
+            [[cell textLabel] setText:@"Buttons go here"];
+            // Add a reset and run button.
 
             return cell;
-            break;
+        }
+        case 2: {
+
+            static NSString *CellIdentifier = @"MergePolicyCell";
+
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+
+            // Configure the cell.
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+
+            switch ([indexPath row]) {
+                case 0: {
+                    [[cell textLabel] setText:@"Main thread merge policy"];
+                    break;
+                }
+                case 1: {
+                    [[cell textLabel] setText:@"Background thread merge policy"];
+                    break;
+                }
+                default:
+                    break;
+            }
+            // Add a reset and run button.
+
+            return cell;
         }
         default: {
             [NSException raise:NSInvalidArgumentException format:@"No such section"];
