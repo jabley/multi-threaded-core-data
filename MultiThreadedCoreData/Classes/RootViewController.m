@@ -55,6 +55,8 @@
         [person setSurname:@"Washington"];
         [[self managedObjectContext] save:NULL];
     }
+
+    [self reset:nil];
 }
 
 /*
@@ -97,6 +99,8 @@
 }
 
 - (void)reset:(id)sender {
+    mainMergePolicy = NSErrorMergePolicy;
+    threadedMergePolicy = NSErrorMergePolicy;
 }
 
 - (void)run:(id)sender {
