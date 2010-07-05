@@ -11,6 +11,11 @@
 
 @interface RootViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ Resets the merge polices
+ */
+- (void)reset:(id)sender;
 @end
 
 
@@ -76,11 +81,16 @@
  */
 
 
+#pragma mark -
+#pragma mark Extension methods
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
     NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[managedObject valueForKey:@"firstName"] description];
     [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
+}
+
+- (void)reset:(id)sender {
 }
 
 #pragma mark -
@@ -138,7 +148,12 @@
             }
 
             // Configure the cell.
-            [[cell textLabel] setText:@"Buttons go here"];
+            UIButton *reset = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [reset addTarget:self action:@selector(reset:) forControlEvents:UIControlEventTouchUpInside];
+            [reset setFrame:CGRectMake(7, 7, 100, 30)];
+            [reset setTitle:@"Reset" forState:UIControlStateNormal];
+            [cell addSubview:reset];
+
             // Add a reset and run button.
 
             return cell;
