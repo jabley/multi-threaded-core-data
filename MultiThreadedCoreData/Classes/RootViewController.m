@@ -273,6 +273,16 @@
 #pragma mark -
 #pragma mark Table view delegate
 
+- (NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch ([indexPath section]) {
+        case 0: // Don't allow selection of the Person rows
+        case 1: // Don't allow selection of the buttons either
+            return nil;
+        default:
+            return indexPath;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here -- for example, create and push another view controller.
     /*
