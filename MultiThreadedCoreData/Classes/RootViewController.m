@@ -16,6 +16,12 @@
  Resets the merge polices
  */
 - (void)reset:(id)sender;
+
+/**
+ Runs the long-running background operations which will update Core Data.
+ */
+- (void)run:(id)sender;
+
 @end
 
 
@@ -93,6 +99,9 @@
 - (void)reset:(id)sender {
 }
 
+- (void)run:(id)sender {
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -147,14 +156,19 @@
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
             }
 
-            // Configure the cell.
+            // Add a reset and run button.
             UIButton *reset = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             [reset addTarget:self action:@selector(reset:) forControlEvents:UIControlEventTouchUpInside];
             [reset setFrame:CGRectMake(7, 7, 100, 30)];
             [reset setTitle:@"Reset" forState:UIControlStateNormal];
             [cell addSubview:reset];
 
-            // Add a reset and run button.
+            UIButton *run = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [run addTarget:self action:@selector(run:) forControlEvents:UIControlEventTouchUpInside];
+            [run setFrame:CGRectMake(200, 7, 100, 30)];
+            [run setTitle:@"Run" forState:UIControlStateNormal];
+            [cell addSubview:run];
+
 
             return cell;
         }
