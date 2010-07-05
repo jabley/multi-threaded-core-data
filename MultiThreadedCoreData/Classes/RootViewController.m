@@ -13,6 +13,11 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 /**
+ Returns a string representation of the merge policy.
+ */
+- (NSString*)mergePolicyName:(id)mergePolicy;
+
+/**
  Resets the merge polices
  */
 - (void)reset:(id)sender;
@@ -98,6 +103,22 @@
     [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
 }
 
+- (NSString*)mergePolicyName:(id)mergePolicy {
+    if (mergePolicy == NSErrorMergePolicy) {
+        return @"NSErrorMergePolicy";
+    } else if (mergePolicy == NSMergeByPropertyObjectTrumpMergePolicy) {
+        return @"NSMergeByPropertyObjectTrumpMergePolicy";
+    } else if (mergePolicy == NSMergeByPropertyStoreTrumpMergePolicy) {
+        return @"NSMergeByPropertyStoreTrumpMergePolicy";
+    } else if (mergePolicy == NSOverwriteMergePolicy) {
+        return @"NSOverwriteMergePolicy";
+    } else if (mergePolicy == NSRollbackMergePolicy) {
+        return @"NSRollbackMergePolicy";
+    } else {
+        return [mergePolicy description];
+    }
+}
+
 - (void)reset:(id)sender {
     mainMergePolicy = NSErrorMergePolicy;
     threadedMergePolicy = NSErrorMergePolicy;
@@ -173,7 +194,6 @@
             [run setTitle:@"Run" forState:UIControlStateNormal];
             [cell addSubview:run];
 
-
             return cell;
         }
         case 2: {
@@ -190,17 +210,16 @@
 
             switch ([indexPath row]) {
                 case 0: {
-                    [[cell textLabel] setText:@"Main thread merge policy"];
+                    [[cell textLabel] setText:[NSString stringWithFormat:@"Main (%@)", [self mergePolicyName:mainMergePolicy]]];
                     break;
                 }
                 case 1: {
-                    [[cell textLabel] setText:@"Background thread merge policy"];
+                    [[cell textLabel] setText:[NSString stringWithFormat:@"BG (%@)", [self mergePolicyName:threadedMergePolicy]]];
                     break;
                 }
                 default:
                     break;
             }
-            // Add a reset and run button.
 
             return cell;
         }
