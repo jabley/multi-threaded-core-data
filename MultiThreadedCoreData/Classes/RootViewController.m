@@ -9,7 +9,14 @@
 #import "RootViewController.h"
 #import "Person.h"
 
+enum TableSections {
+    TableSectionPersons,
+    TableSectionButtons,
+    TableSectionMergePolicies
+};
+
 @interface RootViewController ()
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 /**
@@ -137,14 +144,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0: {
+        case TableSectionPersons: {
             id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
             return [sectionInfo numberOfObjects];
         }
-        case 1: {
+        case TableSectionButtons: {
             return 1;
         }
-        case 2: {
+        case TableSectionMergePolicies: {
             return 2;
         }
         default: {
@@ -159,7 +166,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     switch ([indexPath section]) {
-        case 0: {
+        case TableSectionPersons: {
             static NSString *CellIdentifier = @"Cell";
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -173,7 +180,7 @@
             [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
 
             return cell;
-        } case 1: {
+        } case TableSectionButtons: {
             static NSString *CellIdentifier = @"ButtonCell";
 
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -196,7 +203,7 @@
 
             return cell;
         }
-        case 2: {
+        case TableSectionMergePolicies: {
 
             static NSString *CellIdentifier = @"MergePolicyCell";
 
@@ -275,8 +282,8 @@
 
 - (NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ([indexPath section]) {
-        case 0: // Don't allow selection of the Person rows
-        case 1: // Don't allow selection of the buttons either
+        case TableSectionPersons: // Don't allow selection of the Person rows
+        case TableSectionButtons: // Don't allow selection of the buttons either
             return nil;
         default:
             return indexPath;
