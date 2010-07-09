@@ -23,6 +23,11 @@
      */
     id threadedMergePolicy;
 
+    /**
+     The operation queue to manage the concurrent tasks.
+     */
+    NSOperationQueue *taskQueue_;
+
 }
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;

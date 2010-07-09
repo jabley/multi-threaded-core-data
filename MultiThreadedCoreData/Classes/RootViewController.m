@@ -70,6 +70,9 @@ enum TableSections {
         [[self managedObjectContext] save:NULL];
     }
 
+    taskQueue_ = [[NSOperationQueue alloc] init];
+    [taskQueue_ setMaxConcurrentOperationCount:2];
+
     [self reset:nil];
 }
 
@@ -441,9 +444,9 @@ enum TableSections {
 - (void)dealloc {
     [fetchedResultsController release];
     [managedObjectContext release];
+    [taskQueue_ release];
+
     [super dealloc];
 }
 
-
 @end
-
