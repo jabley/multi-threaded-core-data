@@ -33,4 +33,7 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, retain) id mainMergePolicy;
+@property (nonatomic, retain) id threadedMergePolicy;
+
 @end

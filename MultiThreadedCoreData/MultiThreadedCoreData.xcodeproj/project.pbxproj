@@ -20,6 +20,7 @@
 		F879AFCF11E7283100F2EB2E /* ThreadedCoreDataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFCE11E7283100F2EB2E /* ThreadedCoreDataOperation.m */; };
 		F879AFF511E72B9700F2EB2E /* UpdateFirstNameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFF411E72B9700F2EB2E /* UpdateFirstNameOperation.m */; };
 		F879AFF811E72BA500F2EB2E /* UpdateSurnameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFF711E72BA500F2EB2E /* UpdateSurnameOperation.m */; };
+		F879B05711E736F000F2EB2E /* MergePolicySelectionEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = F879B05611E736F000F2EB2E /* MergePolicySelectionEditor.m */; };
 		F8F6170E11E1188000C54014 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F6170D11E1188000C54014 /* Person.m */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		F879AFF411E72B9700F2EB2E /* UpdateFirstNameOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateFirstNameOperation.m; sourceTree = "<group>"; };
 		F879AFF611E72BA500F2EB2E /* UpdateSurnameOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateSurnameOperation.h; sourceTree = "<group>"; };
 		F879AFF711E72BA500F2EB2E /* UpdateSurnameOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateSurnameOperation.m; sourceTree = "<group>"; };
+		F879B05511E736F000F2EB2E /* MergePolicySelectionEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MergePolicySelectionEditor.h; sourceTree = "<group>"; };
+		F879B05611E736F000F2EB2E /* MergePolicySelectionEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MergePolicySelectionEditor.m; sourceTree = "<group>"; };
 		F8F6170C11E1187F00C54014 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = SOURCE_ROOT; };
 		F8F6170D11E1188000C54014 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -141,6 +144,8 @@
 			children = (
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				F879B05511E736F000F2EB2E /* MergePolicySelectionEditor.h */,
+				F879B05611E736F000F2EB2E /* MergePolicySelectionEditor.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				F879AFCF11E7283100F2EB2E /* ThreadedCoreDataOperation.m in Sources */,
 				F879AFF511E72B9700F2EB2E /* UpdateFirstNameOperation.m in Sources */,
 				F879AFF811E72BA500F2EB2E /* UpdateSurnameOperation.m in Sources */,
+				F879B05711E736F000F2EB2E /* MergePolicySelectionEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

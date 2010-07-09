@@ -10,6 +10,7 @@
 #import "Person.h"
 #import "UpdateFirstNameOperation.h"
 #import "UpdateSurnameOperation.h"
+#import "MergePolicySelectionEditor.h"
 
 enum TableSections {
     TableSectionPersons,
@@ -46,8 +47,10 @@ enum TableSections {
 
 @implementation RootViewController
 
-@synthesize fetchedResultsController, managedObjectContext;
-
+@synthesize fetchedResultsController;
+@synthesize managedObjectContext;
+@synthesize mainMergePolicy;
+@synthesize threadedMergePolicy;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -80,35 +83,10 @@ enum TableSections {
     [self resetWasTapped:nil];
 }
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[self tableView] reloadData];
 }
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-
-/*
- // Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
- */
-
 
 #pragma mark -
 #pragma mark Extension methods
@@ -168,6 +146,11 @@ enum TableSections {
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    /*
+     First section - Person.
+     Second section - Operation buttons.
+     Third section - select merge policies.
+     */
     return 3;
 }
 
@@ -321,17 +304,32 @@ enum TableSections {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here -- for example, create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     NSManagedObject *selectedObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-
     /* Push the view controller responsible for selecting a merge policy. */
+    MergePolicySelectionEditor *mergePolicySelectionEditor = [[MergePolicySelectionEditor alloc] init];
+    [mergePolicySelectionEditor setTarget:self];
+    [mergePolicySelectionEditor setMergePoliciesList:[NSArray arrayWithObjects:NSErrorMergePolicy,
+                                                      NSMergeByPropertyStoreTrumpMergePolicy,
+                                                      NSMergeByPropertyObjectTrumpMergePolicy,
+                                                      NSOverwriteMergePolicy,
+                                                      NSRollbackMergePolicy,
+                                                      nil]];
+
+    switch (indexPath.row) {
+        case 0: {
+            [mergePolicySelectionEditor setKeypath:@"mainMergePolicy"];
+            break;
+        }
+        case 1: {
+            [mergePolicySelectionEditor setKeypath:@"threadedMergePolicy"];
+            break;
+        }
+        default:
+            break;
+    }
+
+    [[self navigationController] pushViewController:mergePolicySelectionEditor animated:YES];
+    [mergePolicySelectionEditor release];
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
