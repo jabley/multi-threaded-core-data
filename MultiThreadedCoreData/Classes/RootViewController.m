@@ -27,12 +27,12 @@ enum TableSections {
 /**
  Resets the merge polices
  */
-- (void)reset:(id)sender;
+- (void)resetWasTapped:(id)sender;
 
 /**
  Runs the long-running background operations which will update Core Data.
  */
-- (void)run:(id)sender;
+- (void)runWasTapped:(id)sender;
 
 @end
 
@@ -73,7 +73,7 @@ enum TableSections {
     taskQueue_ = [[NSOperationQueue alloc] init];
     [taskQueue_ setMaxConcurrentOperationCount:2];
 
-    [self reset:nil];
+    [self resetWasTapped:nil];
 }
 
 /*
@@ -131,12 +131,12 @@ enum TableSections {
     }
 }
 
-- (void)reset:(id)sender {
+- (void)resetWasTapped:(id)sender {
     mainMergePolicy = NSErrorMergePolicy;
     threadedMergePolicy = NSErrorMergePolicy;
 }
 
-- (void)run:(id)sender {
+- (void)runWasTapped:(id)sender {
 }
 
 #pragma mark -
@@ -195,13 +195,13 @@ enum TableSections {
 
             // Add a reset and run button.
             UIButton *reset = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [reset addTarget:self action:@selector(reset:) forControlEvents:UIControlEventTouchUpInside];
+            [reset addTarget:self action:@selector(resetWasTapped:) forControlEvents:UIControlEventTouchUpInside];
             [reset setFrame:CGRectMake(7, 7, 100, 30)];
             [reset setTitle:@"Reset" forState:UIControlStateNormal];
             [cell addSubview:reset];
 
             UIButton *run = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [run addTarget:self action:@selector(run:) forControlEvents:UIControlEventTouchUpInside];
+            [run addTarget:self action:@selector(runWasTapped:) forControlEvents:UIControlEventTouchUpInside];
             [run setFrame:CGRectMake(200, 7, 100, 30)];
             [run setTitle:@"Run" forState:UIControlStateNormal];
             [cell addSubview:run];
