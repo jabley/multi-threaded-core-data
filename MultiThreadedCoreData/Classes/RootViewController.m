@@ -8,6 +8,8 @@
 
 #import "RootViewController.h"
 #import "Person.h"
+#import "UpdateFirstNameOperation.h"
+#import "UpdateSurnameOperation.h"
 
 enum TableSections {
     TableSectionPersons,
@@ -28,6 +30,8 @@ enum TableSections {
  Resets the merge polices
  */
 - (void)resetWasTapped:(id)sender;
+
+- (void)resetPerson:(Person*)person;
 
 /**
  Runs the long-running background operations which will update Core Data.
@@ -64,10 +68,7 @@ enum TableSections {
     if ([[[self fetchedResultsController] fetchedObjects] count] == 0) {
         Person *person = (Person*)[NSEntityDescription insertNewObjectForEntityForName:@"Person"
                                                                 inManagedObjectContext:[self managedObjectContext]];
-
-        [person setFirstName:@"George"];
-        [person setSurname:@"Washington"];
-        [[self managedObjectContext] save:NULL];
+        [self resetPerson:person];
     }
 
     taskQueue_ = [[NSOperationQueue alloc] init];
@@ -134,9 +135,29 @@ enum TableSections {
 - (void)resetWasTapped:(id)sender {
     mainMergePolicy = NSErrorMergePolicy;
     threadedMergePolicy = NSErrorMergePolicy;
+    Person *person = [[[self fetchedResultsController] fetchedObjects] objectAtIndex:0];
+    [self resetPerson:person];
+}
+
+- (void)resetPerson:(Person*)person {
+    [person setFirstName:@"George"];
+    [person setSurname:@"Washington"];
+    [[self managedObjectContext] save:NULL];
 }
 
 - (void)runWasTapped:(id)sender {
+    NSManagedObjectID *entityID = [[[[self fetchedResultsController] fetchedObjects] objectAtIndex:0] objectID];
+    [[self managedObjectContext] setMergePolicy:mainMergePolicy];
+
+    NSOperation *firstName = [[UpdateFirstNameOperation alloc] initWithManagedObjectContext:[self managedObjectContext]
+                                                                                mergePolicy:threadedMergePolicy
+                                                                                   entityID:entityID];
+    NSOperation *surname = [[UpdateSurnameOperation alloc] initWithManagedObjectContext:[self managedObjectContext]
+                                                                            mergePolicy:threadedMergePolicy
+                                                                               entityID:entityID];
+
+    [taskQueue_ addOperation:firstName];
+    [taskQueue_ addOperation:surname];
 }
 
 #pragma mark -
@@ -180,9 +201,9 @@ enum TableSections {
             }
 
             // Configure the cell.
-            NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-            cell.textLabel.text = [[managedObject valueForKey:@"firstName"] description];
-            [[cell detailTextLabel] setText:[[managedObject valueForKey:@"surname"] description]];
+            Person *person = (Person*) [fetchedResultsController objectAtIndexPath:indexPath];
+            [[cell textLabel] setText:[person firstName]];
+            [[cell detailTextLabel] setText:[person surname]];
 
             return cell;
         } case TableSectionButtons: {
