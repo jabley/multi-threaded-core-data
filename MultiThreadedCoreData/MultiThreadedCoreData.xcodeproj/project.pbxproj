@@ -17,6 +17,9 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28D3F202112F7DC200FD0661 /* MultiThreadedCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28D3F201112F7DC200FD0661 /* MultiThreadedCoreData.xcdatamodeld */; };
+		F879AFCF11E7283100F2EB2E /* ThreadedCoreDataOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFCE11E7283100F2EB2E /* ThreadedCoreDataOperation.m */; };
+		F879AFF511E72B9700F2EB2E /* UpdateFirstNameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFF411E72B9700F2EB2E /* UpdateFirstNameOperation.m */; };
+		F879AFF811E72BA500F2EB2E /* UpdateSurnameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F879AFF711E72BA500F2EB2E /* UpdateSurnameOperation.m */; };
 		F8F6170E11E1188000C54014 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F6170D11E1188000C54014 /* Person.m */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,12 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MultiThreadedCoreData-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MultiThreadedCoreData-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F879AFCD11E7283100F2EB2E /* ThreadedCoreDataOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadedCoreDataOperation.h; sourceTree = "<group>"; };
+		F879AFCE11E7283100F2EB2E /* ThreadedCoreDataOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadedCoreDataOperation.m; sourceTree = "<group>"; };
+		F879AFF311E72B9700F2EB2E /* UpdateFirstNameOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateFirstNameOperation.h; sourceTree = "<group>"; };
+		F879AFF411E72B9700F2EB2E /* UpdateFirstNameOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateFirstNameOperation.m; sourceTree = "<group>"; };
+		F879AFF611E72BA500F2EB2E /* UpdateSurnameOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateSurnameOperation.h; sourceTree = "<group>"; };
+		F879AFF711E72BA500F2EB2E /* UpdateSurnameOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateSurnameOperation.m; sourceTree = "<group>"; };
 		F8F6170C11E1187F00C54014 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = SOURCE_ROOT; };
 		F8F6170D11E1188000C54014 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -58,10 +67,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F8F6170C11E1187F00C54014 /* Person.h */,
-				F8F6170D11E1188000C54014 /* Person.m */,
-				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
-				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+				F879AFC811E7274300F2EB2E /* Model */,
+				F879AFCC11E727EB00F2EB2E /* Operations */,
+				F879AFC911E7275100F2EB2E /* View Controllers */,
 				1D3623240D0F684500981E51 /* MultiThreadedCoreDataAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MultiThreadedCoreDataAppDelegate.m */,
 			);
@@ -117,6 +125,37 @@
 				28860BE40F44EE6400985440 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F879AFC811E7274300F2EB2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F8F6170C11E1187F00C54014 /* Person.h */,
+				F8F6170D11E1188000C54014 /* Person.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F879AFC911E7275100F2EB2E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
+				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		F879AFCC11E727EB00F2EB2E /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				F879AFCD11E7283100F2EB2E /* ThreadedCoreDataOperation.h */,
+				F879AFCE11E7283100F2EB2E /* ThreadedCoreDataOperation.m */,
+				F879AFF311E72B9700F2EB2E /* UpdateFirstNameOperation.h */,
+				F879AFF411E72B9700F2EB2E /* UpdateFirstNameOperation.m */,
+				F879AFF611E72BA500F2EB2E /* UpdateSurnameOperation.h */,
+				F879AFF711E72BA500F2EB2E /* UpdateSurnameOperation.m */,
+			);
+			name = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +224,9 @@
 				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
 				28D3F202112F7DC200FD0661 /* MultiThreadedCoreData.xcdatamodeld in Sources */,
 				F8F6170E11E1188000C54014 /* Person.m in Sources */,
+				F879AFCF11E7283100F2EB2E /* ThreadedCoreDataOperation.m in Sources */,
+				F879AFF511E72B9700F2EB2E /* UpdateFirstNameOperation.m in Sources */,
+				F879AFF811E72BA500F2EB2E /* UpdateSurnameOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
