@@ -31,6 +31,9 @@ enum TableSections {
  */
 - (void)resetWasTapped:(id)sender;
 
+/**
+ Resets the Person to the initial values.
+ */
 - (void)resetPerson:(Person*)person;
 
 /**
@@ -137,6 +140,7 @@ enum TableSections {
     threadedMergePolicy = NSErrorMergePolicy;
     Person *person = [[[self fetchedResultsController] fetchedObjects] objectAtIndex:0];
     [self resetPerson:person];
+    [[self tableView] reloadData];
 }
 
 - (void)resetPerson:(Person*)person {
