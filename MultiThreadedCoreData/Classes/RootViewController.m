@@ -302,6 +302,9 @@ enum TableSections {
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+
+    /* Push the view controller responsible for selecting a merge policy. */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
