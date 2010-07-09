@@ -48,6 +48,8 @@ enum TableSections {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setTitle:@"Core Data threading"];
+
     NSError *error = nil;
     if (![[self fetchedResultsController] performFetch:&error]) {
         /*
