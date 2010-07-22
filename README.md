@@ -2,6 +2,7 @@
 This is a sample App to demonstrate Core Data multi-threading for safe updates
 
 The application seeds itself with a Core Data entity and then provides a button to run 2 operations. The NSOperations:
+
 * update different fields of the same entity
 * take a different amount of time to run (intended to simulate distinct differences caused by networking)
 * Attempt to save their changes.
